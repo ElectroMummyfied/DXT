@@ -1,0 +1,30 @@
+#undef COMMA
+#undef TYPE
+#undef _TYPE_
+#undef _TYPE__
+#undef TMPLT_
+#undef TMPLT__
+#undef STRUCT
+
+#undef VECTOR_NAME
+#undef IMP
+#undef IMPL
+#undef VECTOR_TYPE
+
+#undef VECTOR_ENTRY_NAME
+#undef eIMP
+#undef eIMPL
+#undef VECTOR_ENTRY_TYPE
+
+#undef VECTOR_ENTRY_CONST_NAME
+#undef ecIMP
+#undef ecIMPL
+#undef VECTOR_TYPE
+#undef VECTOR_ENTRY_CONST_TYPE
+
+#undef LINK_VECTOR_DEF_BASE
+#undef LINK_VECTOR_DEF
+#undef LINK_VECTOR_DEF_BASIC_TYPES_BASE
+#undef LINK_VECTOR_DEF_BASIC_TYPES
+
+#undef VECTOR_BOOL

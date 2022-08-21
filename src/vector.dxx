@@ -1,0 +1,193 @@
+#pragma region boiler-plate {
+  #ifdef COMMA
+    #error "COMMA defined somewhere else"
+  #else
+    #define COMMA ,
+  #endif
+
+  #ifdef TYPE
+    #error "TYPE defined somewhere else"
+  #else
+    #define TYPE <VALUE_T, KEY_T, CONTAINER_T>
+  #endif
+
+  #ifdef _TYPE_
+    #error "_TYPE_ defined somewhere else"
+  #else
+    #define _TYPE_ <class VALUE_T, class KEY_T, class CONTAINER_T>
+  #endif
+
+  #ifdef _TYPE__
+    #error "_TYPE__ defined somewhere else"
+  #else
+    #define _TYPE__ <class VALUE_T, class KEY_T = unsigned long, class CONTAINER_T = std::map<KEY_T, VALUE_T>>
+  #endif
+
+  #ifdef TMPLT_
+    #error "TMPLT_ defined somewhere else"
+  #else
+    #define TMPLT_ template _TYPE_
+  #endif
+
+  #ifdef TMPLT__
+    #error "TMPLT__ defined somewhere else"
+  #else
+    #define TMPLT__ template _TYPE__
+  #endif
+
+  #ifdef STRUCT
+    #error "STRUCT defined somewhere else"
+  #else
+    #define STRUCT TMPLT_ struct
+  #endif
+#pragma endregion } boiler-plate
+#pragma region VECTOR_NAME_ {
+  #ifdef VECTOR_NAME
+    #error "VECTOR_NAME defined somewhere else"
+  #else
+    #define VECTOR_NAME vector
+  #endif
+
+  #ifdef IMP
+    #error "IMP defined somewhere else"
+  #else
+    #define IMP VECTOR_NAME TYPE
+  #endif
+
+  #ifdef IMPL
+    #error "IMPL defined somewhere else"
+  #else
+    #define IMPL(type) TMPLT_ type IMP::
+  #endif
+
+  #ifdef VECTOR_TYPE
+    #error "VECTOR_TYPE defined somewhere else"
+  #else
+    #define VECTOR_TYPE VECTOR_NAME TYPE
+  #endif
+
+
+#pragma endregion } VECTOR_NAME_
+#pragma region VECTOR_ENTRY_NAME_ {
+  #ifdef VECTOR_ENTRY_NAME
+    #error "VECTOR_ENTRY_NAME defined somewhere else"
+  #else
+    #define VECTOR_ENTRY_NAME vector_entry
+  #endif
+
+  #ifdef eIMP
+    #error "eIMP defined somewhere else"
+  #else
+    #define eIMP VECTOR_ENTRY_NAME TYPE
+  #endif
+
+  #ifdef eIMPL
+    #error "IMPL defined somewhere else"
+  #else
+    #define eIMPL(type) TMPLT_ type eIMP::
+  #endif
+
+  #ifdef VECTOR_ENTRY_TYPE
+    #error "VECTOR_ENTRY_TYPE defined somewhere else"
+  #else
+    #define VECTOR_ENTRY_TYPE eIMP
+  #endif
+#pragma endregion } VECTOR_ENTRY_NAME_
+#pragma region VECTOR_ENTRY_CONST_NAME_ {
+
+  #ifdef VECTOR_ENTRY_CONST_NAME
+    #error "VECTOR_ENTRY_CONST_NAME defined somewhere else"
+  #else
+    #define VECTOR_ENTRY_CONST_NAME vector_entry_const
+  #endif
+
+  #ifdef ecIMP
+    #error "eIMP defined somewhere else"
+  #else
+    #define ecIMP VECTOR_ENTRY_CONST_NAME TYPE
+  #endif
+
+  #ifdef ecIMPL
+    #error "ecIMPL defined somewhere else"
+  #else
+    #define ecIMPL(type) TMPLT_ type ecIMP::
+  #endif
+
+  #ifdef VECTOR_ENTRY_CONST_TYPE
+    #error "VECTOR_ENTRY_CONST_TYPE defined somewhere else"
+  #else
+    #define VECTOR_ENTRY_CONST_TYPE ecIMP
+  #endif
+
+#pragma endregion } VECTOR_ENTRY_CONST_NAME_
+#pragma region linking-boiler-plate {
+  #ifdef LINK_VECTOR_DEF_BASE
+    #error "LINK_VECTOR_DEF_BASE defined somewhere else"
+  #else
+    #define LINK_VECTOR_DEF_BASE(type)                \
+      template class VECTOR_NAME<type>;               \
+      template class VECTOR_ENTRY_NAME<type>;         \
+      template class VECTOR_ENTRY_CONST_NAME<type>;   \
+                                                      \
+      template std::ostream &                         \
+      operator<< <type>(                              \
+        std::ostream &,                               \
+        const VECTOR_NAME<type> &  );                 \
+                                                      \
+      template std::ostream &                         \
+      operator<< <type>(                              \
+        std::ostream &,                               \
+        const VECTOR_ENTRY_NAME<type> &  );           \
+      template std::ostream &                         \
+                                                      \
+      operator<< <type>(                              \
+        std::ostream &,                               \
+        const VECTOR_ENTRY_CONST_NAME<type> &  )
+  #endif
+
+  #ifdef LINK_VECTOR_DEF
+    #error "LINK_VECTOR_DEF defined somewhere else"
+  #else
+    #define LINK_VECTOR_DEF(type1, type2, type3) \
+      LINK_VECTOR_DEF_BASE(                      \
+        type1 COMMA                              \
+        type2 COMMA                              \
+        type3 <type2 COMMA type1>)
+  #endif
+
+  #ifdef LINK_VECTOR_DEF_BASIC_TYPES_BASE
+    #error "LINK_VECTOR_DEF_BASIC_TYPES_BASE defined somewhere else"
+  #else
+    #define LINK_VECTOR_DEF_BASIC_TYPES_BASE(type2, type3) \
+      LINK_VECTOR_DEF(   bool,  type2, type3);             \
+                                                          \
+      LINK_VECTOR_DEF( int8_t,  type2, type3);             \
+      LINK_VECTOR_DEF(int16_t,  type2, type3);             \
+      LINK_VECTOR_DEF(int32_t,  type2, type3);             \
+      LINK_VECTOR_DEF(int64_t,  type2, type3);             \
+                                                          \
+      LINK_VECTOR_DEF( uint8_t, type2, type3);             \
+      LINK_VECTOR_DEF(uint16_t, type2, type3);             \
+      LINK_VECTOR_DEF(uint32_t, type2, type3);             \
+      LINK_VECTOR_DEF(uint64_t, type2, type3);             \
+                                                          \
+      LINK_VECTOR_DEF( float,   type2, type3);             \
+      LINK_VECTOR_DEF(double,   type2, type3)
+  #endif
+
+  #ifdef LINK_VECTOR_DEF_BASIC_TYPES
+    #error "LINK_VECTOR_DEF_BASIC_TYPES defined somewhere else"
+  #else
+    #define LINK_VECTOR_DEF_BASIC_TYPES(type3)           \
+      LINK_VECTOR_DEF_BASIC_TYPES_BASE( uint8_t, type3); \
+      LINK_VECTOR_DEF_BASIC_TYPES_BASE(uint16_t, type3); \
+      LINK_VECTOR_DEF_BASIC_TYPES_BASE(uint32_t, type3); \
+      LINK_VECTOR_DEF_BASIC_TYPES_BASE(uint64_t, type3)
+  #endif
+#pragma endregion } linking-boiler-plate
+
+#ifdef VECTOR_BOOL
+  #error "VECTOR_BOOL defined somewhere else"
+#else
+  #define VECTOR_BOOL VECTOR_NAME<bool, KEY_T, std::map<KEY_T, bool>>
+#endif

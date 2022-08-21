@@ -1,0 +1,27 @@
+
+namespace dexter {
+
+  TMPLT__ struct vector;
+  TMPLT__ struct vector_entry;
+  TMPLT__ struct vector_entry_const;
+
+  template<class T>
+  T add(const T &lhs, const T &rhs);
+  template<class T>
+  T multiply(const T &lhs, const T &rhs);
+};
+
+TMPLT_ std::ostream&
+operator<< (
+  std::ostream& os,
+  const dexter::VECTOR_NAME TYPE &e  );
+
+TMPLT_ std::ostream&
+operator<< (
+  std::ostream& os,
+  const dexter::VECTOR_ENTRY_NAME TYPE &e);
+
+TMPLT_ std::ostream&
+operator<< (
+  std::ostream& os,
+  const dexter::VECTOR_ENTRY_CONST_NAME TYPE &e);

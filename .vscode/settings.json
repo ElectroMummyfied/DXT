@@ -1,0 +1,21 @@
+{
+  "files.associations": {
+    "limits": "cpp",
+    "climits": "cpp",
+    "iostream": "cpp",
+    "cstdint": "cpp",
+    "array": "cpp",
+    "deque": "cpp",
+    "string": "cpp",
+    "vector": "cpp",
+    "memory_resource": "cpp",
+    "string_view": "cpp",
+
+    "*.dxx": "cpp",
+    "*.fxx": "cpp",
+    "*.hxx": "cpp",
+    "*.txx": "cpp",
+    "*.cxx": "cpp",
+    "*.uxx": "cpp",
+  }
+}
