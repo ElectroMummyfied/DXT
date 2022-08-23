@@ -14,13 +14,21 @@
   #ifdef _TYPE_
     #error "_TYPE_ defined somewhere else"
   #else
-    #define _TYPE_ <class VALUE_T, class KEY_T, class CONTAINER_T>
+    #define _TYPE_ <          \
+      class VALUE_T,          \
+      class KEY_T,            \
+      template<class, class>  \
+        class CONTAINER_T  >
   #endif
 
   #ifdef _TYPE__
     #error "_TYPE__ defined somewhere else"
   #else
-    #define _TYPE__ <class VALUE_T, class KEY_T = unsigned long, class CONTAINER_T = std::map<KEY_T, VALUE_T>>
+    #define _TYPE__ <                   \
+      class VALUE_T,                    \
+      class KEY_T = unsigned long,      \
+      template<class, class>            \
+        class CONTAINER_T = std::map  >
   #endif
 
   #ifdef TMPLT_
@@ -94,7 +102,6 @@
   #endif
 #pragma endregion } VECTOR_ENTRY_NAME_
 #pragma region VECTOR_ENTRY_CONST_NAME_ {
-
   #ifdef VECTOR_ENTRY_CONST_NAME
     #error "VECTOR_ENTRY_CONST_NAME defined somewhere else"
   #else
@@ -118,8 +125,71 @@
   #else
     #define VECTOR_ENTRY_CONST_TYPE ecIMP
   #endif
-
 #pragma endregion } VECTOR_ENTRY_CONST_NAME_
+
+#ifdef VECTOR_ENTRY_PLACEHOLDER_NAME
+  #error "VECTOR_ENTRY_PLACEHOLDER_NAME defined somewhere else"
+#else
+  #define VECTOR_ENTRY_PLACEHOLDER_NAME vector_entry_placeholder
+#endif
+
+#ifdef VECTOR_ENTRY_PLACEHOLDER_TYPE
+  #error "VECTOR_ENTRY_PLACEHOLDER_TYPE defined somewhere else"
+#else
+  #define VECTOR_ENTRY_PLACEHOLDER_TYPE VECTOR_ENTRY_PLACEHOLDER_NAME
+#endif
+
+#pragma region VECTOR_OPERATOR__NAME_ {
+  #ifdef VECTOR_OPERATOR__NAME
+    #error "VECTOR_OPERATOR__NAME defined somewhere else"
+  #else
+    #define VECTOR_OPERATOR__NAME vector_operator_
+  #endif
+
+  #ifdef wIMP
+    #error "wIMP defined somewhere else"
+  #else
+    #define wIMP VECTOR_OPERATOR__NAME TYPE
+  #endif
+
+  #ifdef wIMPL
+    #error "wIMPL defined somewhere else"
+  #else
+    #define wIMPL(type) TMPLT_ type wIMP::
+  #endif
+
+  #ifdef VECTOR_OPERATOR__TYPE
+    #error "VECTOR_OPERATOR__TYPE defined somewhere else"
+  #else
+    #define VECTOR_OPERATOR__TYPE wIMP
+  #endif
+#pragma endregion } VECTOR_ENTRY_WISE_OP_NAME_
+#pragma region VECTOR_OPERATOR__CONST_NAME_ {
+  #ifdef VECTOR_OPERATOR__CONST_NAME
+    #error "VECTOR_OPERATOR__CONST_NAME defined somewhere else"
+  #else
+    #define VECTOR_OPERATOR__CONST_NAME vector_operator__const
+  #endif
+
+  #ifdef wcIMP
+    #error "wcIMP defined somewhere else"
+  #else
+    #define wcIMP VECTOR_OPERATOR__CONST_NAME TYPE
+  #endif
+
+  #ifdef wcIMPL
+    #error "wcIMPL defined somewhere else"
+  #else
+    #define wcIMPL(type) TMPLT_ type wcIMP::
+  #endif
+
+  #ifdef VECTOR_OPERATOR__CONST_TYPE
+    #error "VECTOR_OPERATOR__CONST_TYPE defined somewhere else"
+  #else
+    #define VECTOR_OPERATOR__CONST_TYPE wcIMP
+  #endif
+#pragma endregion } VECTOR_ENTRY_WISE_OP_NAME_
+
 #pragma region linking-boiler-plate {
   #ifdef LINK_VECTOR_DEF_BASE
     #error "LINK_VECTOR_DEF_BASE defined somewhere else"
@@ -189,5 +259,5 @@
 #ifdef VECTOR_BOOL
   #error "VECTOR_BOOL defined somewhere else"
 #else
-  #define VECTOR_BOOL VECTOR_NAME<bool, KEY_T, std::map<KEY_T, bool>>
+  #define VECTOR_BOOL VECTOR_NAME<bool, KEY_T, CONTAINER_T>
 #endif

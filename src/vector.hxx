@@ -8,11 +8,14 @@
 #include "vector.fxx"
 
 namespace dexter {
+
+  enum class VECTOR_ENTRY_PLACEHOLDER_NAME {i, j};
+
   STRUCT VECTOR_NAME {
     KEY_T m_size;
     VALUE_T m_val;
 
-    CONTAINER_T m_data;
+    CONTAINER_T<KEY_T, VALUE_T> m_data;
 
     VALUE_T (*m_operator_x)(const VALUE_T&, const VALUE_T&);
     VALUE_T (*m_operator_y)(const VALUE_T&, const VALUE_T&);
@@ -27,8 +30,13 @@ namespace dexter {
     // VECTOR_NAME operator+(const VECTOR_NAME& rhs);
     // val_t operator*(const VECTOR_NAME& rhs);
 
-          VECTOR_ENTRY_NAME TYPE operator[](KEY_T id);
-    VECTOR_ENTRY_CONST_NAME TYPE operator[](KEY_T id) const;
+            VECTOR_ENTRY_TYPE operator[](const KEY_T &i);
+      VECTOR_ENTRY_CONST_TYPE operator[](const KEY_T &i) const;
+
+            VECTOR_ENTRY_TYPE operator[](const VECTOR_ENTRY_PLACEHOLDER_TYPE &h);
+      VECTOR_ENTRY_CONST_TYPE operator[](const VECTOR_ENTRY_PLACEHOLDER_TYPE &h) const;
+
+            // VECTOR_ENTRY_TYPE operator[]();
 
                      VECTOR_BOOL operator<(const VALUE_T val) const;
                      VECTOR_BOOL operator>(const VALUE_T val) const;

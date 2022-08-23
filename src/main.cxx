@@ -4,6 +4,7 @@
 using namespace dexter;
 
 int main(int argc, char *argv[]) {
+
   vector<double> a , b;
   vector<bool> c;
 

@@ -31,7 +31,7 @@ namespace dexter {
       m_size = l.size();
       m_data.clear();
       for(auto it = l.begin(); it != l.end(); it++) {
-        VECTOR_ENTRY_NAME TYPE e = operator[]( std::distance(l.begin(), it) );
+        VECTOR_ENTRY_TYPE e = operator[]( std::distance(l.begin(), it) );
         e = *it;
       }
 
@@ -62,36 +62,40 @@ namespace dexter {
         return val;
     }
 
-    IMPL(VECTOR_ENTRY_NAME TYPE)
-    operator[](KEY_T id) {
+    IMPL(VECTOR_ENTRY_TYPE)
+    operator[](const KEY_T &id) {
       if(!(id < m_size)) throw;
-      VECTOR_ENTRY_NAME TYPE e(*this, id);
+      VECTOR_ENTRY_TYPE e(*this, id);
       return e;
     };
 
-    IMPL(VECTOR_ENTRY_CONST_NAME TYPE)
-    operator[](KEY_T id) const {
+    IMPL(VECTOR_ENTRY_CONST_TYPE)
+    operator[](const KEY_T &id) const {
       if(!(id < m_size)) throw;
-      VECTOR_ENTRY_CONST_NAME TYPE e(*this, id);
+      VECTOR_ENTRY_CONST_TYPE e(*this, id);
       return e;
     };
 
     IMPL(VECTOR_BOOL)
     operator<(const VALUE_T val) const {
       VECTOR_BOOL vec(m_size);
+      for(KEY_T it = 0; it < m_size; it++)
+        vec[it] = operator[](it) < val;
 
       return vec;
     }
     IMPL(VECTOR_BOOL)
     operator>(const VALUE_T val) const {
       VECTOR_BOOL vec(m_size);
-     
+      for(KEY_T it = 0; it < m_size; it++)
+        vec[it] = operator[](it) > val;
+
       return vec;
     }
   #pragma endregion } VECTOR_NAME_
   #pragma region VECTOR_ENTRY_NAME_ {
     eIMPL()
-    VECTOR_ENTRY_NAME (VECTOR_NAME TYPE& vec, KEY_T k)
+    VECTOR_ENTRY_NAME (VECTOR_TYPE &vec, KEY_T k)
     : m_vec(vec),
       m_k(k)
     {};
@@ -123,7 +127,7 @@ namespace dexter {
   #pragma endregion } VECTOR_ENTRY_NAME_
   #pragma region VECTOR_ENTRY_CONST_NAME_ {
     ecIMPL()
-    VECTOR_ENTRY_CONST_NAME(const vector TYPE &vec, KEY_T k)
+    VECTOR_ENTRY_CONST_NAME(const VECTOR_TYPE &vec, KEY_T k)
     : m_vec(vec),
       m_k(k)
     {};
@@ -138,7 +142,7 @@ namespace dexter {
 
 
 TMPLT_ std::ostream&
-operator<<(std::ostream& os, const dexter::VECTOR_NAME TYPE &vec) {
+operator<<(std::ostream& os, const dexter::VECTOR_TYPE &vec) {
   os << "[";
 
   typename decltype(vec.m_data)::const_iterator it;
@@ -156,13 +160,13 @@ operator<<(std::ostream& os, const dexter::VECTOR_NAME TYPE &vec) {
 }
 
 TMPLT_ std::ostream&
-operator<<(std::ostream& os, const dexter::VECTOR_ENTRY_CONST_NAME TYPE &e) {
+operator<<(std::ostream& os, const dexter::VECTOR_ENTRY_CONST_TYPE &e) {
   os << static_cast<VALUE_T>(e);
   return os;
 }
 
 TMPLT_ std::ostream&
-operator<<(std::ostream& os, const dexter::VECTOR_ENTRY_NAME TYPE &e) {
+operator<<(std::ostream& os, const dexter::VECTOR_ENTRY_TYPE &e) {
   os << static_cast<VALUE_T>(e);
   return os;
 }
