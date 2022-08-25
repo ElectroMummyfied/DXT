@@ -68,6 +68,7 @@
     #define IMPL(type) TMPLT_ type IMP::
   #endif
 
+
   #ifdef VECTOR_TYPE
     #error "VECTOR_TYPE defined somewhere else"
   #else
@@ -100,6 +101,7 @@
   #else
     #define VECTOR_ENTRY_TYPE eIMP
   #endif
+
 #pragma endregion } VECTOR_ENTRY_NAME_
 #pragma region VECTOR_ENTRY_CONST_NAME_ {
   #ifdef VECTOR_ENTRY_CONST_NAME
@@ -127,16 +129,23 @@
   #endif
 #pragma endregion } VECTOR_ENTRY_CONST_NAME_
 
+
 #ifdef VECTOR_ENTRY_PLACEHOLDER_NAME
   #error "VECTOR_ENTRY_PLACEHOLDER_NAME defined somewhere else"
 #else
   #define VECTOR_ENTRY_PLACEHOLDER_NAME vector_entry_placeholder
 #endif
 
-#ifdef VECTOR_ENTRY_PLACEHOLDER_TYPE
-  #error "VECTOR_ENTRY_PLACEHOLDER_TYPE defined somewhere else"
+// #ifdef VECTOR_ENTRY_PLACEHOLDER_TYPE
+//   #error "VECTOR_ENTRY_PLACEHOLDER_TYPE defined somewhere else"
+// #else
+//   #define VECTOR_ENTRY_PLACEHOLDER_TYPE VECTOR_ENTRY_PLACEHOLDER_NAME
+// #endif
+
+#ifdef VECTOR_OPERATOR_BASE_NAME
+  #error "VECTOR_ENTRY_PLACEHOLDER_BASE_NAME defined somewhere else"
 #else
-  #define VECTOR_ENTRY_PLACEHOLDER_TYPE VECTOR_ENTRY_PLACEHOLDER_NAME
+  #define VECTOR_OPERATOR_BASE_NAME vector_operator_base
 #endif
 
 #pragma region VECTOR_OPERATOR__NAME_ {

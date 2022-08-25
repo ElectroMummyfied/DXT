@@ -26,7 +26,7 @@ namespace dexter {
       operator=(l);
     }
 
-    IMPL(VECTOR_NAME TYPE&)
+    IMPL(VECTOR_TYPE&)
     operator=(std::initializer_list<VALUE_T> l) {
       m_size = l.size();
       m_data.clear();
@@ -38,7 +38,7 @@ namespace dexter {
       return *this;
     }
 
-    IMPL(VECTOR_NAME TYPE)
+    IMPL(VECTOR_TYPE)
     x(const VECTOR_NAME &rhs) const {
       VECTOR_NAME vec(m_size);
 
@@ -76,22 +76,34 @@ namespace dexter {
       return e;
     };
 
-    IMPL(VECTOR_BOOL)
-    operator<(const VALUE_T val) const {
-      VECTOR_BOOL vec(m_size);
-      for(KEY_T it = 0; it < m_size; it++)
-        vec[it] = operator[](it) < val;
+    IMPL(VALUE_T)
+    operator+() const {
+      VALUE_T res;
 
-      return vec;
+      return res;
     }
-    IMPL(VECTOR_BOOL)
-    operator>(const VALUE_T val) const {
-      VECTOR_BOOL vec(m_size);
-      for(KEY_T it = 0; it < m_size; it++)
-        vec[it] = operator[](it) > val;
+    IMPL(VALUE_T)
+    operator*() const {
+      VALUE_T res;
 
-      return vec;
+      return res;
     }
+    // IMPL(VECTOR_BOOL)
+    // operator<(const VALUE_T val) const {
+    //   VECTOR_BOOL vec(m_size);
+    //   for(KEY_T it = 0; it < m_size; it++)
+    //     vec[it] = operator[](it) < val;
+
+    //   return vec;
+    // }
+    // IMPL(VECTOR_BOOL)
+    // operator>(const VALUE_T val) const {
+    //   VECTOR_BOOL vec(m_size);
+    //   for(KEY_T it = 0; it < m_size; it++)
+    //     vec[it] = operator[](it) > val;
+
+    //   return vec;
+    // }
   #pragma endregion } VECTOR_NAME_
   #pragma region VECTOR_ENTRY_NAME_ {
     eIMPL()
@@ -99,6 +111,11 @@ namespace dexter {
     : m_vec(vec),
       m_k(k)
     {};
+    // eIMPL()
+    // VECTOR_ENTRY_NAME (const VECTOR_T TYPE &vec, KEY_T k)
+    // : m_vec(vec),
+    //   m_k(k)
+    // {};
 
     eIMPL(VALUE_T)
     operator=(VALUE_T val) {
