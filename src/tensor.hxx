@@ -1,30 +1,27 @@
 #pragma once
 
-
-#include <math.h>
 #include <map>
+#include <vector>
 
-#include <cstdint>
-#include <iostream>
+#include "preprocessor.dxx"
 
-#include <boost/preprocessor.hpp>
 
-#include "vector.dxx"
-#include "vector.uxx"
 
-#include "vector.dxx"
-#include "vector.fxx"
+namespace TENSOR_NAMESPACE_NAME {
 
-namespace dexter {
+  template<
+    class VALUE_T,
+    class INTEGRAL_T,
+    template<class, class> class CONTAINER_T,
+    template<class> class KEY_T
+  > struct TENSOR_NAME {
 
-  enum class VECTOR_ENTRY_PLACEHOLDER_NAME {i, j};
-
-  STRUCT VECTOR_NAME {
     KEY_T m_size;
     VALUE_T m_val;
-
     CONTAINER_T<KEY_T, VALUE_T> m_data;
 
+
+    // tensor();
     VALUE_T (*m_operator_x)(const VALUE_T&, const VALUE_T&);
     VALUE_T (*m_operator_y)(const VALUE_T&, const VALUE_T&);
 
@@ -54,52 +51,25 @@ namespace dexter {
 
     const VECTOR_NAME& operator=(std::initializer_list<VALUE_T> l);
     friend std::ostream& ::operator<< <>(std::ostream& os, const VECTOR_TYPE &v);
-  };
+    // ull rank() const;
+    // ull rank(const rank_t &_rank);
 
-  STRUCT VECTOR_ENTRY_NAME {
-    const KEY_T m_k;
-    VECTOR_TYPE &m_vec;
-    VALUE_T m_v;
+    // ull n_elem() const;
+    // rank_t strides() const;
 
-    VECTOR_ENTRY_NAME(VECTOR_TYPE &v, KEY_T k);
-    // VECTOR_ENTRY_NAME(const VECTOR_T TYPE &v, KEY_T id);
+    // bool valid(const ull & _key) const;
+    // bool valid(const rank_t &_addr) const;
 
-    operator VALUE_T() const;
+    // bool key(const rank_t &_addr, ull &_key) const;
+    // bool addr(ull _key, rank_t &_addr) const;
 
-    VALUE_T operator=(VALUE_T val);
-
-    friend std::ostream& ::operator<< <>(std::ostream& os, const VECTOR_ENTRY_TYPE &v);
-  };
-  STRUCT VECTOR_ENTRY_CONST_NAME {
-    const KEY_T m_k;
-    const VECTOR_TYPE &m_vec;
-    VALUE_T m_v;
-
-    VECTOR_ENTRY_CONST_NAME(const VECTOR_TYPE &v, KEY_T id);
-    operator VALUE_T() const;
-
-    friend std::ostream& ::operator<< <>(std::ostream &os, const VECTOR_ENTRY_CONST_TYPE &e);
-  };
-
-  STRUCT VECTOR_OPERATOR_BASE_NAME {
+    // T& at(const ull &_key);
+    // //T& at(const ull &_key) const;
+    // T& at(const rank_t &_addr);
+    // //T& at(const rank_t &_addr) const;
 
   };
-  STRUCT VECTOR_OPERATOR__NAME
-    : VECTOR_OPERATOR_BASE_NAME TYPE {
-    VECTOR_TYPE &m_vec;
+} // namespace TENSOR_NAMESPACE_NAME
 
-    VECTOR_OPERATOR__NAME(VECTOR_TYPE &vec);
-  };
-  STRUCT VECTOR_OPERATOR__CONST_NAME
-    : VECTOR_OPERATOR_BASE_NAME TYPE {
-    const VECTOR_TYPE &m_vec;
 
-    VECTOR_OPERATOR__CONST_NAME(const VECTOR_TYPE &vec);
-  };
-};
-
-#ifndef VECTOR_NO_HEADER_TEMPLATES
-  #include "vector.txx"
-#endif
-
-#include "vector.uxx"
+#include "preprocessor.uxx"

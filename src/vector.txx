@@ -1,12 +1,6 @@
 namespace dexter {
-  template<class T>
-  T add(const T &lhs, const T &rhs) {
-    return lhs + rhs;
-  }
-  template<class T>
-  T multiply(const T &lhs, const T &rhs) {
-    return lhs * rhs;
-  }
+
+  BINARY_OPERATORS_DECL(1);
 
   #pragma region VECTOR_NAME_ {
     IMPL() VECTOR_NAME(KEY_T size, VALUE_T dval)
@@ -26,7 +20,7 @@ namespace dexter {
       operator=(l);
     }
 
-    IMPL(VECTOR_TYPE&)
+    IMPL(const VECTOR_TYPE&)
     operator=(std::initializer_list<VALUE_T> l) {
       m_size = l.size();
       m_data.clear();
@@ -48,6 +42,7 @@ namespace dexter {
 
       return vec;
     }
+
     IMPL(VALUE_T)
     y() const {
       VALUE_T val;
@@ -80,11 +75,24 @@ namespace dexter {
     operator+() const {
       VALUE_T res;
 
+      res = 0;
+      for(auto e: m_data) {
+        res += e.second;
+      }
+      res += (m_data.size() - m_size) * m_val;
+
       return res;
     }
+
     IMPL(VALUE_T)
     operator*() const {
       VALUE_T res;
+
+      res = 1;
+      for(auto e: m_data) {
+        res *= e.second;
+      }
+      res *= std::pow(m_val, m_data.size() - m_size);
 
       return res;
     }
@@ -155,6 +163,92 @@ namespace dexter {
       return (it != m_vec.m_data.end() ? it->second : m_vec.m_val);
     };
   #pragma endregion } VECTOR_ENTRY_CONST_NAME_
+
+
+  TMPLT__
+  VALUE_T reduce (
+    const VECTOR_TYPE &vec,
+    VALUE_T (*const cb)(const VALUE_T &, const VALUE_T &)
+  ) {
+    if(vec.m_size == 0) throw;
+
+    VALUE_T res;
+
+    // upper echelon operator needs to be known for this to work
+    // res = *vec.m_data.begin();
+    // for(auto it = ++vec.m_data.begin(); it != vec.m_data.end(); it++) {
+    //   res = cb(res, it->second);
+    // }
+
+    // operator inverses do not work properly
+    res = vec[0];
+    for(std::size_t i = 1; i < vec.m_size; i++) {
+      res = cb(res, vec[i]);
+    }
+
+    return res;
+  }
+
+  TMPLT__
+  VECTOR_TYPE entrywise (
+    const VECTOR_TYPE &lhs,
+    const VECTOR_TYPE &rhs,
+    VALUE_T (*const cb)(const VALUE_T &, const VALUE_T &)
+  ) {
+    if(lhs.m_size == 0 || rhs.m_size == 0) throw;
+    if(lhs.m_size != rhs.m_size) throw;
+
+    VECTOR_TYPE res(lhs.m_size, cb(lhs.m_val, rhs.m_val));
+
+    for(auto lhs_it = lhs.m_data.begin(); lhs_it != lhs.m_data.end(); lhs_it++) {
+      auto rhs_it = rhs.m_data.find(lhs_it->first);
+      res[lhs_it->first] =
+        ((rhs_it != rhs.m_data.end()) ?
+          cb(lhs_it->second, rhs_it->second) :
+          cb(lhs_it->second, rhs.m_val)  );
+    }
+
+    for(auto rhs_it = rhs.m_data.begin(); rhs_it != rhs.m_data.end(); rhs_it++) {
+      auto lhs_it = lhs.m_data.find(rhs_it->first);
+      if(lhs_it != lhs.m_data.end()) continue;
+      res[rhs_it->first] = cb(rhs_it->second, lhs.m_val);
+    }
+
+    return res;
+  }
+
+  TMPLT__
+  VECTOR_TYPE cartesian (
+    const VECTOR_TYPE &lhs,
+    const VECTOR_TYPE &rhs,
+    VALUE_T (*const cb)(const VALUE_T &, const VALUE_T &)
+  ) {
+
+  }
+
+  // TMPLT_
+  // VECTOR_TYPE entrywise_add(const VECTOR_TYPE &lhs, const VECTOR_TYPE &rhs) {
+  //     if(lhs.m_size == 0 || rhs.m_size == 0) throw;
+  //     if(lhs.m_size != rhs.m_size) throw;
+
+  //     VECTOR_TYPE res(lhs.m_size, lhs.m_val + rhs.m_val);
+
+  //     for(auto lhs_it = lhs.m_data.begin(); lhs_it != lhs.m_data.end(); lhs_it++) {
+  //       auto rhs_it = rhs.m_data.find(lhs_it->first);
+  //       res[lhs_it->first] =
+  //         ((rhs_it != rhs.m_data.end()) ?
+  //           lhs_it->second + rhs_it->second :
+  //           lhs_it->second + rhs.m_val  );
+  //     }
+
+  //     for(auto rhs_it = rhs.m_data.begin(); rhs_it != rhs.m_data.end(); rhs_it++) {
+  //       auto lhs_it = lhs.m_data.find(rhs_it->first);
+  //       if(lhs_it != lhs.m_data.end()) continue;
+  //       res[rhs_it->first] = rhs_it->second + lhs.m_val;
+  //     }
+
+  //     return res;
+  // }
 };
 
 

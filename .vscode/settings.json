@@ -19,6 +19,20 @@
     "*.hxx": "cpp",
     "*.txx": "cpp",
     "*.uxx": "cpp",
-    "type_traits": "cpp"
-  }
+    "type_traits": "cpp",
+    "iterator": "cpp",
+    "memory": "cpp",
+    "atomic": "cpp",
+    "*.tcc": "cpp",
+    "unordered_map": "cpp",
+    "functional": "cpp",
+    "istream": "cpp",
+    "new": "cpp",
+    "ostream": "cpp",
+    "stdexcept": "cpp",
+    "streambuf": "cpp",
+    "system_error": "cpp",
+    "tuple": "cpp"
+  },
+  "cmake.configureOnOpen": false
 }

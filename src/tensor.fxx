@@ -1,0 +1,13 @@
+namespace TENSOR_NAMESPACE_NAME {
+  template<
+    class
+      VALUE_T = double,
+    class
+      INTEGRAL_T = unsigned long long,
+    template<class, class> class
+      CONTAINER_T = std::map,
+    template<class> class
+      KEY_T = std::vector
+  > struct TENSOR_NAME;
+
+}; // namespace TENSOR_NAMESPACE_NAME

@@ -1,9 +1,38 @@
+#ifdef COMMA
+  #error "COMMA defined somewhere else"
+#else
+  #define COMMA ,
+#endif
+
+#ifdef SEQ_PREFIX_MACRO
+  #error "SEQ_POSTFIX_MACRO defined somewhere else"
+#else
+  #define SEQ_PREFIX_MACRO(s, data, elem) \
+    BOOST_PP_CAT(data, elem)
+#endif
+
+#ifdef SEQ_PREFIX
+  #error "SEQ_PREFIX defined somewhere else"
+#else
+  #define SEQ_PREFIX(seq, prefix) \
+    BOOST_PP_SEQ_TRANSFORM(SEQ_PREFIX_MACRO, prefix, seq)
+#endif
+
+#ifdef SEQ_POSTFIX_MACRO
+  #error "SEQ_POSTFIX_MACRO defined somewhere else"
+#else
+  #define SEQ_POSTFIX_MACRO(s, data, elem) \
+    BOOST_PP_CAT(elem, data)
+#endif
+
+#ifdef SEQ_POSTFIX
+  #error "SEQ_POSTFIX defined somewhere else"
+#else
+  #define SEQ_POSTFIX(seq, postfix) \
+    BOOST_PP_SEQ_TRANSFORM(SEQ_POSTFIX_MACRO, postfix, seq)
+#endif
+
 #pragma region boiler-plate {
-  #ifdef COMMA
-    #error "COMMA defined somewhere else"
-  #else
-    #define COMMA ,
-  #endif
 
   #ifdef TYPE
     #error "TYPE defined somewhere else"
@@ -237,20 +266,20 @@
   #ifdef LINK_VECTOR_DEF_BASIC_TYPES_BASE
     #error "LINK_VECTOR_DEF_BASIC_TYPES_BASE defined somewhere else"
   #else
-    #define LINK_VECTOR_DEF_BASIC_TYPES_BASE(type2, type3) \
-      LINK_VECTOR_DEF(   bool,  type2, type3);             \
-                                                          \
-      LINK_VECTOR_DEF( int8_t,  type2, type3);             \
-      LINK_VECTOR_DEF(int16_t,  type2, type3);             \
-      LINK_VECTOR_DEF(int32_t,  type2, type3);             \
-      LINK_VECTOR_DEF(int64_t,  type2, type3);             \
-                                                          \
-      LINK_VECTOR_DEF( uint8_t, type2, type3);             \
-      LINK_VECTOR_DEF(uint16_t, type2, type3);             \
-      LINK_VECTOR_DEF(uint32_t, type2, type3);             \
-      LINK_VECTOR_DEF(uint64_t, type2, type3);             \
-                                                          \
-      LINK_VECTOR_DEF( float,   type2, type3);             \
+    #define LINK_VECTOR_DEF_BASIC_TYPES_BASE(type2, type3)  \
+      LINK_VECTOR_DEF(   bool,  type2, type3);              \
+                                                            \
+      LINK_VECTOR_DEF( int8_t,  type2, type3);              \
+      LINK_VECTOR_DEF(int16_t,  type2, type3);              \
+      LINK_VECTOR_DEF(int32_t,  type2, type3);              \
+      LINK_VECTOR_DEF(int64_t,  type2, type3);              \
+                                                            \
+      LINK_VECTOR_DEF( uint8_t, type2, type3);              \
+      LINK_VECTOR_DEF(uint16_t, type2, type3);              \
+      LINK_VECTOR_DEF(uint32_t, type2, type3);              \
+      LINK_VECTOR_DEF(uint64_t, type2, type3);              \
+                                                            \
+      LINK_VECTOR_DEF( float,   type2, type3);              \
       LINK_VECTOR_DEF(double,   type2, type3)
   #endif
 
@@ -269,4 +298,83 @@
   #error "VECTOR_BOOL defined somewhere else"
 #else
   #define VECTOR_BOOL VECTOR_NAME<bool, KEY_T, CONTAINER_T>
+#endif
+
+#ifdef BINARY_OPERATOR_NAMES_SEQUENCE
+  #error "BINARY_OPERATOR_NAMES_SEQUENCE defined somewhere else"
+#else
+  #define BINARY_OPERATOR_NAMES_SEQUENCE \
+    (add     )\
+    (subtract)\
+    (multiply)\
+    (divide  )\
+    (pow     )\
+    (root    )\
+    (log     )
+#endif
+
+#ifdef BINARY_OPERATORS_DEF_SEQUENCE
+  #error "BINARY_OPERATORS_DEF_SEQUENCE defined somewhere else"
+#else
+  #define BINARY_OPERATORS_DEF_SEQUENCE           \
+    ( (add)      (lhs + rhs)                     )\
+    ( (subtract) (lhs - rhs)                     )\
+    ( (multiply) (lhs * rhs)                     )\
+    ( (divide)   (lhs / rhs)                     )\
+    ( (pow)      (std::pow(lhs, rhs))            )\
+    ( (root)     (std::pow(lhs, 1.0 / rhs))      )\
+    ( (log)      (std::log(lhs) / std::log(rhs)) )
+#endif
+
+#ifdef BINARY_OPERATOR
+  #error "BINARY_OPERATOR defined somewhere else"
+#else
+  #define BINARY_OPERATOR(name)        \
+    template<class T>                  \
+    T name(const T &lhs, const T &rhs)
+#endif
+
+#ifdef BINARY_OPERATORS_MACRO
+  #error "BINARY_OPERATORS_MACRO defined somewhere else"
+#else
+  #define BINARY_OPERATORS_MACRO(r, data, elem)                    \
+    BINARY_OPERATOR(BOOST_PP_SEQ_ELEM(0, elem))                    \
+      BOOST_PP_IF(data, { return BOOST_PP_SEQ_ELEM(1, elem); }, ;)
+#endif
+
+#ifdef BINARY_OPERATORS_DECL
+  #error "BINARY_OPERATORS_DECL defined somewhere else"
+#else
+  // implementation vs forward-declaration
+  #define BINARY_OPERATORS_DECL(true_false) \
+    BOOST_PP_SEQ_FOR_EACH(                  \
+      BINARY_OPERATORS_MACRO,               \
+      true_false,                           \
+      BINARY_OPERATORS_DEF_SEQUENCE  )
+#endif
+
+#ifdef VECTOR_OPERATORS_PRIMARY_SEQUENCE
+  #error "VECTOR_OPERATORS_PRIMARY_SEQUENCE defined somewhere else"
+#else
+  #define VECTOR_OPERATORS_PRIMARY_SEQUENCE \
+    (cartesian) \
+    (hadamard) \
+    (reduce)
+#endif
+
+#ifdef VECTOR_OPERATORS_MACRO
+  #error "VECTOR_OPERATORS_MACRO defined somewhere else"
+#else
+  #define VECTOR_OPERATORS_MACRO(r, prod) \
+    (BOOST_PP_SEQ_CAT(prod))
+#endif
+
+#ifdef VEC_OP_NAMES_SEQ
+  #error "VEC_OP_NAMES_SEQ defined somewhere else"
+#else
+  #define VEC_OP_NAMES_SEQ                               \
+    BOOST_PP_SEQ_FOR_EACH_PRODUCT(                       \
+      VECTOR_OPERATORS_MACRO,                            \
+      (SEQ_POSTFIX(VECTOR_OPERATORS_PRIMARY_SEQUENCE, _)) \
+        (BINARY_OPERATOR_NAMES_SEQUENCE)  )
 #endif

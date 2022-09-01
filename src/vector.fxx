@@ -13,10 +13,38 @@ namespace dexter {
   TMPLT__ struct VECTOR_OPERATOR__NAME;
   TMPLT__ struct VECTOR_OPERATOR__CONST_NAME;
 
-  template<class T>
-  T add(const T &lhs, const T &rhs);
-  template<class T>
-  T multiply(const T &lhs, const T &rhs);
+
+  BINARY_OPERATORS_DECL(0)
+
+  // BINARY_OPERATOR(add);
+  // BINARY_OPERATOR(multi);
+  // BINARY_OPERATOR(multi);
+
+
+  TMPLT__
+  VALUE_T reduce (
+    const VECTOR_TYPE &vec,
+    VALUE_T (*const cb)(const VALUE_T &, const VALUE_T &)
+  );
+
+  TMPLT__
+  VECTOR_TYPE entrywise (
+    const VECTOR_TYPE &lhs,
+    const VECTOR_TYPE &rhs,
+    VALUE_T (*const cb)(const VALUE_T &, const VALUE_T &)
+  );
+
+  TMPLT__
+  VECTOR_TYPE cartesian (
+    const VECTOR_TYPE &lhs,
+    const VECTOR_TYPE &rhs,
+    VALUE_T (*const cb)(const VALUE_T &, const VALUE_T &)
+  );
+
+
+  // TMPLT__
+  // VECTOR_TYPE entrywise_add(const VECTOR_TYPE &lhs, const VECTOR_TYPE &rhs);
+
 };
 
 TMPLT_ std::ostream&

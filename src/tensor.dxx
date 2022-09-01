@@ -1,0 +1,11 @@
+#ifndef TENSOR_NAMESPACE_NAME
+  #define TENSOR_NAMESPACE_NAME dexter
+#else
+  #error "TENSOR_NAMESPACE_NAME defined somewhere else"
+#endif
+
+#ifndef TENSOR_NAME
+  #define TENSOR_NAME tensor
+#else
+  #error "TENSOR_NAME defined somewhere else"
+#endif

@@ -10,12 +10,23 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 endif ()
 
 add_executable(out
-  src/vector.fxx
-  src/vector.hxx
-  src/vector.txx
-  src/vector.cxx
+  src/preprocessor.dxx
+  src/preprocessor.uxx
+
+  src/tensor.hxx
+  # src/tensor.txx
+  src/tensor.cxx
+
+  # src/vector.fxx
+  # src/vector.hxx
+  # src/vector.txx
+  # src/vector.cxx
   src/main.cxx
   )
+target_compile_options(out
+  PUBLIC -save-temps
+)
+
 target_include_directories(out
   PUBLIC
     ${CMAKE_SOURCE_DIR}/../boost/libs/preprocessor/include  )

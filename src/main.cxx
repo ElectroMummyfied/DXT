@@ -1,21 +1,32 @@
-#include "vector.hxx"
+// #include "vector.hxx"
+// #include "vector.dxx"
+
+#include "tensor.hxx"
 #include <iostream>
-#include <map>
+
 
 using namespace dexter;
 
+
+
 int main(int argc, char *argv[]) {
-  vector<double> a , b, c;
+  #pragma region vector testing... {
+  // vector<double> a(0, 3) , b, c;
 
-  a = {1, 1, 3, 0, 5};
-  b = {5, 4, 0, 2, 1};
+  // a = {1, 1, 3, 0, 5, 0};
+  // b = {5, 4, 3, 2, 1, 1};
 
-  auto d = *a;
+  // auto d = reduce(b, root);
 
-  std::cout << "a = " << a.m_data.size() << "\n";
-  std::cout << "b = " << b.m_data.size() << "\n";
-  std::cout << "c = " << c << "\n";
-  std::cout << "d = " << d << "\n";
+  // std::cout << "a = " << a.m_data.size() << "\n";
+  // std::cout << "b = " << b.m_data.size() << "\n";
+  // std::cout << "c = " << c << "\n";
+  // std::cout << "d = " << d << "\n";
+
+  // std::cout << BOOST_PP_STRINGIZE(SEQ_PREFIX((a)(b), _)) << std::endl;
+  // std::cout << BOOST_PP_STRINGIZE(SEQ_POSTFIX((a)(b), _)) << std::endl;
+  // std::cout << BOOST_PP_STRINGIZE(VEC_OP_NAMES_SEQ) << std::endl;
+  #pragma endregion } vector testing...
 
   std::cout << "\n\nEnd of program. (press any key to continue... )\n";
   std::cin.get();

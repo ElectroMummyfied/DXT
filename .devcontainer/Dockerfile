@@ -10,5 +10,6 @@ RUN apt -y install build-essential
 RUN apt -y install gdb
 RUN apt -y install ninja-build
 RUN apt -y install cmake
+RUN apt -y install libboost-all-dev
 
 

@@ -5,7 +5,7 @@
       "name":"Win32",
       "includePath":[
         "${workspaceFolder}/**",
-        "${workspaceFolder}/../boost/libs/preprocessor/include/**"
+        // "${workspaceFolder}/../boost/libs/preprocessor/include/**"
 
       ],
       "defines":[
