@@ -1,15 +1,22 @@
+
+#include "tensor.hxx"
+
 // #include "vector.hxx"
 // #include "vector.dxx"
 
-#include "tensor.hxx"
-#include <iostream>
-
-
 using namespace dexter;
 
-
-
 int main(int argc, char *argv[]) {
+  tensor a(
+    {5}, 0,
+    { {{0}, 1},
+      {{1}, 2},
+      {{2}, 4}  }
+  );
+
+  // double e = a[{1, 0}];
+  std::cout << a << "\n";
+
   #pragma region vector testing... {
   // vector<double> a(0, 3) , b, c;
 

@@ -1,13 +1,22 @@
-namespace TENSOR_NAMESPACE_NAME {
-  template<
-    class
-      VALUE_T = double,
-    class
-      INTEGRAL_T = unsigned long long,
-    template<class, class> class
-      CONTAINER_T = std::map,
-    template<class> class
-      KEY_T = std::vector
-  > struct TENSOR_NAME;
+namespace TNN {
 
-}; // namespace TENSOR_NAMESPACE_NAME
+  TTMPF struct TN;
+
+  TTMPF struct TEBN;
+  TTMPF struct TEN;
+  TTMPF struct TECN;
+}; // namespace TENSOR_NAMESPACE_NAM
+
+
+template<class T>
+std::ostream& operator<< (
+  std::ostream& os,
+  const std::vector<T> &v  );
+
+TTMP std::ostream& operator<< (
+  std::ostream& os,
+  const TNN::TEBT &e  );
+
+TTMP std::ostream& operator<< (
+  std::ostream& os,
+  const TNN::TTP &t  );

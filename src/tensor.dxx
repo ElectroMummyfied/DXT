@@ -1,11 +1,128 @@
-#ifndef TENSOR_NAMESPACE_NAME
-  #define TENSOR_NAMESPACE_NAME dexter
+#include "preprocessor.dxx"
+
+#ifndef TNN
+  // TENSOR NAMESPACE NAME
+  #define TNN dexter
 #else
-  #error "TENSOR_NAMESPACE_NAME defined somewhere else"
+  #error "TNN defined somewhere else"
 #endif
 
-#ifndef TENSOR_NAME
-  #define TENSOR_NAME tensor
+#ifndef TN
+  // TENSOR NAME
+  #define TN tensor
 #else
-  #error "TENSOR_NAME defined somewhere else"
+  #error "TN defined somewhere else"
+#endif
+
+#ifndef TTMPF
+  #define TTMPF                          \
+    template  <                          \
+      class                              \
+        VALUE_T = double,                \
+      class                              \
+        INTEGRAL_T = unsigned long long, \
+      template<class, class> class       \
+        MAP_T = std::map,                \
+      template<class> class              \
+        ARRAY_T = std::vector  >
+#else
+  #error "TTMPF defined somewhere else"
+#endif
+
+#ifndef TTMP
+  #define TTMP                     \
+    template  <                    \
+      class                        \
+        VALUE_T,                   \
+      class                        \
+        INTEGRAL_T,                \
+      template<class, class> class \
+        MAP_T,                     \
+      template<class> class        \
+        ARRAY_T  >
+#else
+  #error "TTMP defined somewhere else"
+#endif
+
+#ifndef TT
+  // TENSOR TAG
+  #define TT <VALUE_T, INTEGRAL_T, MAP_T, ARRAY_T>
+#else
+  #error "TT defined somewhere else"
+#endif
+
+#ifndef TTP
+  // TENSOR TYPE
+  #define TTP TN TT
+#else
+  #error "TTP defined somewhere else"
+#endif
+
+#ifndef TI
+  #define TI(type) TTMP type TTP::
+#else
+  #error "TI defined somewhere else"
+#endif
+
+#ifndef TEBN
+  // TENSOR ENTRY BASE NAME
+  #define TEBN tensor_entry_base
+#else
+  #error "TEBN defined somewhere else"
+#endif
+
+#ifndef TEBT
+  // TENSOR ENTRY BASE TYPE
+  #define TEBT TEBN TT
+#else
+  #error "TEBT defined somewhere else"
+#endif
+
+#ifndef TEBI
+  // TENSOR ENTRY IMPLEMENTATION
+  #define TEBI(type) TTMP type TEBT::
+#else
+  #error "TEBI defined somewhere else"
+#endif
+
+#ifndef TEN
+  // TENSOR ENTRY NAME
+  #define TEN tensor_entry
+#else
+  #error "TEN defined somewhere else"
+#endif
+
+#ifndef TET
+  // TENSOR ENTRY TYPE
+  #define TET TEN TT
+#else
+  #error "TET defined somewhere else"
+#endif
+
+#ifndef TEI
+  // TENSOR ENTRY IMPLEMENTATION
+  #define TEI(type) TTMP type TET::
+#else
+  #error "TEI defined somewhere else"
+#endif
+
+#ifndef TECN
+  // TENSOR ENTRY CONST NAME
+  #define TECN BOOST_PP_CAT(TEN, _const)
+#else
+  #error "TECN defined somewhere else"
+#endif
+
+#ifndef TECT
+  // TENSOR ENTRY NAME
+  #define TECT TECN TT
+#else
+  #error "TECT defined somewhere else"
+#endif
+
+#ifndef TECI
+  // TENSOR ENTRY IMPLEMENTATION
+  #define TECI(type) TTMP type TECT::
+#else
+  #error "TECI defined somewhere else"
 #endif

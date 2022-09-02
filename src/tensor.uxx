@@ -1,0 +1,27 @@
+
+
+
+#undef TNN
+#undef TTMPF
+#undef TTMP
+
+#undef TT
+
+#undef TN
+#undef TTP
+#undef TI
+
+#undef TEBN
+#undef TEBT
+
+#undef TEN
+#undef TET
+
+#undef TECN
+#undef TECT
+
+
+
+
+
+#include "preprocessor.uxx"

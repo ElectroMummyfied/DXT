@@ -13,9 +13,12 @@ add_executable(out
   src/preprocessor.dxx
   src/preprocessor.uxx
 
+  src/tensor.dxx
+  src/tensor.fxx
   src/tensor.hxx
-  # src/tensor.txx
+  src/tensor.txx
   src/tensor.cxx
+  src/tensor.uxx
 
   # src/vector.fxx
   # src/vector.hxx
