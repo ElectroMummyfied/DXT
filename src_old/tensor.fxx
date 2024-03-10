@@ -1,10 +1,29 @@
 namespace TNN {
+  template<class VALUE_T = double> struct RNN;
 
   TTMPF struct TN;
-
   TTMPF struct TEBN;
   TTMPF struct TEN;
   TTMPF struct TECN;
+
+  TTMPF VALUE_T reduce (
+    const TTP &vec,
+    BBOCP(VALUE_T, const cb),
+    VALUE_T I
+  );
+
+  TTMPF TTP entrywise (
+    const TTP &lhs,
+    const TTP &rhs,
+    BBOCP(VALUE_T, const cb)
+  );
+
+  TTMPF TTP cartesian (
+    const TTP &lhs,
+    const TTP &rhs,
+    BBOCP(VALUE_T, const cb)
+  );
+
 }; // namespace TENSOR_NAMESPACE_NAM
 
 

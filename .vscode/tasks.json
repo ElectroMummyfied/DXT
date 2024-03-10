@@ -4,14 +4,22 @@
     {
       "label": "config",
       "type": "shell",
-      "command": "cmake -S ${workspaceFolder} --preset default",
-      "problemMatcher": [],
+      "command": "cmake",
+      "args": [
+        "-S", "${workspaceFolder}",
+        "-B", "${workspaceFolder}/build",
+        "-D", "CMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "-D", "VCPKG_TARGET_TRIPLET=x64-windows-release"
+      ],
     },
     {
       "label": "build",
       "type": "shell",
-      "command": "cmake --build ${workspaceFolder}/build --config Debug",
-      "problemMatcher": [],
+      "command": "cmake",
+      "args": [
+        "--build", "${workspaceFolder}/build",
+        "--config", "RelWithDebInfo"
+      ],
       "dependsOn": ["config"],
       "dependsOrder": "sequence"
     }

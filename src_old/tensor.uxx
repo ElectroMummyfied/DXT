@@ -1,6 +1,3 @@
-
-
-
 #undef TNN
 #undef TTMPF
 #undef TTMP
@@ -20,6 +17,9 @@
 #undef TECN
 #undef TECT
 
+#undef BBOCP
+
+#undef TBBOs
 
 
 

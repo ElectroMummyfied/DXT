@@ -15,6 +15,7 @@
 #endif
 
 #ifndef TTMPF
+  // TENSOR TEMPLATE FOWARD-DECLARATION
   #define TTMPF                          \
     template  <                          \
       class                              \
@@ -30,6 +31,7 @@
 #endif
 
 #ifndef TTMP
+  // TENSOR TEMPLATE
   #define TTMP                     \
     template  <                    \
       class                        \
@@ -59,6 +61,7 @@
 #endif
 
 #ifndef TI
+  // TENSOR IMPLEMENTATION
   #define TI(type) TTMP type TTP::
 #else
   #error "TI defined somewhere else"
@@ -79,7 +82,7 @@
 #endif
 
 #ifndef TEBI
-  // TENSOR ENTRY IMPLEMENTATION
+  // TENSOR ENTRY BASE IMPLEMENTATION
   #define TEBI(type) TTMP type TEBT::
 #else
   #error "TEBI defined somewhere else"
@@ -114,15 +117,30 @@
 #endif
 
 #ifndef TECT
-  // TENSOR ENTRY NAME
+  // TENSOR ENTRY CONST. TYPE
   #define TECT TECN TT
 #else
   #error "TECT defined somewhere else"
 #endif
 
 #ifndef TECI
-  // TENSOR ENTRY IMPLEMENTATION
+  // TENSOR ENTRY CONST. IMPLEMENTATION
   #define TECI(type) TTMP type TECT::
 #else
   #error "TECI defined somewhere else"
 #endif
+
+#ifndef BBOCP
+  // BASIC BINARY OPERATOR CALLBACK POINTER
+  #define BBOCP(type, name) type (* name)(const type &, const type &)
+#else
+  #error "BBOCP defined somewhere else"
+#endif
+
+// #ifndef TPOS
+//   // TENSOR PRIMER OPERATORS SEQUENCE
+//   #define TBBOCP \
+//     ()
+// #else
+//   #error "TBBOCP defined somewhere else"
+// #endif

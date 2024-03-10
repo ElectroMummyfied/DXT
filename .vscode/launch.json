@@ -1,7 +1,19 @@
 {
   "configurations": [
-
-    
+    {
+      "name": "(Windows) Launch",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/RelWithDebInfo/cli.exe",
+      "args": [
+        "${workspaceFolder}/public/Infinity_Cube.stl"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/public",
+      "environment": [],
+      "console": "integratedTerminal",
+      "preLaunchTask": "build"
+    },
     {
       "name": "(gdb) Launch",
       "type": "cppdbg",

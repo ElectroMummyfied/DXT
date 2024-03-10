@@ -84,7 +84,66 @@ namespace TNN {
       return (it != m_t.m_data.end() ? it->second : m_t.m_val);
     };
   #pragma endregion } TECN
+
+  // this function could give you the wrong results if
+  // the identity (id) and the annihilator (ann) elements are do set properly
+
+  TTMPF VALUE_T reduce (
+    const TTP &t,
+    BBOCP(VALUE_T, const op),
+    BBOCP(VALUE_T, const aux),
+    VALUE_T id,
+    VALUE_T ann
+  ) {
+    VALUE_T res;
+
+    // t.m_val
+
+    // res = op(id, t.m_data);
+    // for(auto it = ++t.m_data.begin(); it != t.m_data.end(); it++) {
+    //   res = op(res, it->second);
+    // }
+
+    return res;
+  }
+
+  TTMPF TTP entrywise (
+    const TTP &lhs,
+    const TTP &rhs,
+    BBOCP(VALUE_T, const cb)
+  ) {
+    // if(lhs.m_size == 0 || rhs.m_size == 0) throw;
+    // if(lhs.m_size != rhs.m_size) throw;
+
+    // VECTOR_TYPE res(lhs.m_size, cb(lhs.m_val, rhs.m_val));
+
+    // for(auto lhs_it = lhs.m_data.begin(); lhs_it != lhs.m_data.end(); lhs_it++) {
+    //   auto rhs_it = rhs.m_data.find(lhs_it->first);
+    //   res[lhs_it->first] =
+    //     ((rhs_it != rhs.m_data.end()) ?
+    //       cb(lhs_it->second, rhs_it->second) :
+    //       cb(lhs_it->second, rhs.m_val)  );
+    // }
+
+    // for(auto rhs_it = rhs.m_data.begin(); rhs_it != rhs.m_data.end(); rhs_it++) {
+    //   auto lhs_it = lhs.m_data.find(rhs_it->first);
+    //   if(lhs_it != lhs.m_data.end()) continue;
+    //   res[rhs_it->first] = cb(rhs_it->second, lhs.m_val);
+    // }
+
+    // return res;
+  }
+
+  TTMPF TTP cartesian (
+    const TTP &lhs,
+    const TTP &rhs,
+    BBOCP(VALUE_T, const cb)
+  ) {
+
+  }
+
 } // namespace TENSOR_NAMESPACE_NAME
+
 #pragma region ostream& operator<< {
   template<class T>
   std::ostream& operator<< (

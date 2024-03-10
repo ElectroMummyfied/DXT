@@ -36,6 +36,7 @@ namespace TNN {
 
      TET operator[](const KEY_T &k);
     TECT operator[](const KEY_T &k) const;
+
         // VALUE_T w(const VECTOR_NAME& rhs) const; //    nPr operator
     // VECTOR_NAME x(const VECTOR_NAME& rhs) const; // e-wise operator
     //     VALUE_T y() const;                       // reduce operator
@@ -70,8 +71,8 @@ namespace TNN {
     const TN& operator=(
       std::initializer_list<std::pair<KEY_T, VALUE_T>> l  );
     friend std::ostream& ::operator<< <>(std::ostream& os, const TTP &t);
-
   };
+
   TTMP struct TEBN {
     typedef ARRAY_T<INTEGRAL_T> KEY_T;
     typedef MAP_T<KEY_T, VALUE_T> DATA_T;
